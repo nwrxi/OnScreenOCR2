@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="OnScreenOCR" GeneratedClassName="AppSettings">
+  <Profiles />
+  <Settings>
+    <Setting Name="GOOGLE_APPLICATION_CREDENTIALS" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C:\Workspaces\C#\workspace\OnScreenOCR\OnScreenOCR\bin\Debug\netcoreapp3.1\textsubreplacer-15a60a521df7.json</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
