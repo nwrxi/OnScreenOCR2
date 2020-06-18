@@ -13,5 +13,10 @@ namespace OnScreenOCR
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnExit(ExitEventArgs e)
+        {
+            AppSettings.Default.Save();
+        }
     }
+
 }

@@ -15,6 +15,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using GI.Screenshot;
+using Google.Rpc;
+using MaterialDesignThemes.Wpf;
 using OnScreenOCR.PerformOCR;
 
 namespace OnScreenOCR
@@ -22,19 +24,24 @@ namespace OnScreenOCR
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private bool OcrInProgress { get; set; }
         public MainWindow()
         {
             InitializeComponent();
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            HelpBtn.IsChecked = true;
+        }
 
         private async void PerformBtn_Click(object sender, RoutedEventArgs e)
         {
             if (OcrInProgress)
             {
-                MessageBox.Show("OCR is already in progress");
+                Dialog.IsOpen = true;
+                //MessageBox.Show("OCR is already in progress");
                 return;
             }
 
@@ -47,23 +54,33 @@ namespace OnScreenOCR
 
             Show();
 
-            var recognizedText = await new VisionApi().RecognizeImage(bitImage);
+            var recognizedText = await RecognizeText(new VisionApi(), bitImage);
 
+            if (AppSettings.Default.OpenNewWindow)
+            {
+                if (Application.Current.Windows.OfType<ResultWindow>().Any())
+                {
+                    var resWindow = Application.Current.Windows.OfType<ResultWindow>().ElementAt(0);
+                    resWindow.ResultText.Text = recognizedText;
+                }
+                else
+                {
+                    var resWindow = new ResultWindow { ResultText = { Text = recognizedText } };
+                    resWindow.Show();
+                }
+            }
 
-            if (Application.Current.Windows.OfType<ResultWindow>().Any())
-            {
-                var resWindow = Application.Current.Windows.OfType<ResultWindow>().ElementAt(0);
-                resWindow.ResultText.Text = recognizedText;
-            }
-            else
-            {
-                var resWindow = new ResultWindow {ResultText = {Text = recognizedText}};
-                resWindow.Show();
-            }
+            if(AppSettings.Default.CopyToClipboard)
+                Clipboard.SetText(recognizedText);
+
             //MessageBox.Show(recognizedText);
-            Clipboard.SetText(recognizedText);
 
             OcrInProgress = false;
+        }
+
+        private static async Task<string> RecognizeText(IOcrHandler ocrHandler, byte[] bitImage)
+        {
+            return await ocrHandler.RecognizeImage(bitImage);
         }
 
         private static async Task<byte[]> ConvertImage(BitmapSource image)
@@ -81,5 +98,27 @@ namespace OnScreenOCR
 
             return bitImage;
         }
+
+        private void ExitBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void HelpBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new HelpPage());
+        }
+
+        private void SettingsBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new SettingsPage());
+        }
+
+        private void AboutBtn_Checked(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new AboutPage());
+        }
+
+        
     }
 }

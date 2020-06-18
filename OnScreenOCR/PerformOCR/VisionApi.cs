@@ -14,7 +14,7 @@ namespace OnScreenOCR.PerformOCR
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS);
 
             var image = await Task.Run(() => Image.FromBytes(imageArr));
-            var client = ImageAnnotatorClient.Create();
+            var client = await ImageAnnotatorClient.CreateAsync();
 
             var textAnnotations = await client.DetectTextAsync(image);
             return textAnnotations.ToString() == "[ ]" ? "No text found" : textAnnotations[0].Description;

@@ -1,0 +1,42 @@
+﻿<Page x:Class="OnScreenOCR.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OnScreenOCR"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal" 
+      TextOptions.TextRenderingMode="Auto" 
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SettingsPage">
+
+    <Grid>
+        <TextBlock HorizontalAlignment="Left" Margin="10,11,0,0" Text="OCR API:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+        <ComboBox
+            Name="ApiList" materialDesign:HintAssist.Hint="Choose OCR API" Height="34" Margin="10,33,492,0"
+            VerticalAlignment="Top" SelectionChanged="ApiList_SelectionChanged"  >
+        </ComboBox>
+
+        <TextBlock HorizontalAlignment="Left" Margin="10,79,0,0" Text="Text Language:" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+        <ComboBox
+            Name="LanguageList" materialDesign:HintAssist.Hint="Choose text language" Height="34" Margin="10,101,492,0"
+            VerticalAlignment="Top" SelectionChanged="LanguageList_SelectionChanged"  >
+        </ComboBox>
+        <CheckBox Content="Copy OCR results to clipboard" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" 
+                IsChecked="{Binding CopyToClipboard, 
+                Mode=TwoWay, 
+                Source={x:Static local:AppSettings.Default}, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+        <CheckBox Content="Open new window with OCR results" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top"
+                  IsChecked="{Binding OpenNewWindow, 
+                Mode=TwoWay, 
+                Source={x:Static local:AppSettings.Default}, 
+                UpdateSourceTrigger=PropertyChanged}"/>
+    </Grid>
+</Page>

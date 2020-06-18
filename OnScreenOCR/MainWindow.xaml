@@ -3,26 +3,71 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         xmlns:local="clr-namespace:OnScreenOCR"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <Button Name="PerformBtn" Content="Do the thing" HorizontalAlignment="Center" VerticalAlignment="Center" Height="41" Width="124" Style="{StaticResource MetroButton}" Click="PerformBtn_Click">
-            <Button.ContentTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Width="120">
-                        <iconPacks:PackIconModern Width="22"
-                                                  Height="22"
-                                                  VerticalAlignment="Center"
-                                                  Kind="Camera" />
-                        <TextBlock Margin="4 0 0 0"
-                                   VerticalAlignment="Center"
-                                   Text="{Binding}" />
-                    </StackPanel>
-                </DataTemplate>
-            </Button.ContentTemplate>
-        </Button>
+        Title="MainWindow" Height="536" Width="710" Loaded="Window_Loaded">
+    <materialDesign:DialogHost Name="Dialog">
+        <materialDesign:DialogHost.DialogContent>
+            <StackPanel Margin="16">
+                <TextBlock>OCR is already in progress.</TextBlock>
+                <Button Style="{StaticResource MaterialDesignFlatButton}"
+                        IsCancel="True"
+                        Margin="0 8 8 0"
+                        Command="materialDesign:DialogHost.CloseDialogCommand">
+                    Ok
+                </Button>
+            </StackPanel>
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+            <StackPanel
+            Orientation="Horizontal" Height="52" VerticalAlignment="Top" Margin="0,0,450,0">
+                <Button Name="PerformBtn" BorderBrush="CornflowerBlue"  Content="OCR"  Margin="15 10" VerticalAlignment="Center" Height="27" Width="93" Click="PerformBtn_Click" Background="#FFEEEEEE">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Width="118">
+                                <materialDesign:PackIcon  Width="28"
+                                                      Height="22"
+                                                      VerticalAlignment="Center"
+                                                      Kind="Camera" />
+                                <TextBlock Margin="4 0 0 0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+            </StackPanel>
+            <StackPanel 
+            Orientation="Horizontal" Height="43" HorizontalAlignment="Right" VerticalAlignment="Top">
+                <RadioButton Name="SettingsBtn" BorderBrush="CornflowerBlue"
+                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         Margin="4"
+                         IsChecked="False"
+                         Content="Settings" Checked="SettingsBtn_Checked" />
+                <RadioButton Name="HelpBtn" BorderBrush="CornflowerBlue"
+                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         Margin="4"
+                         IsChecked="False"
+                         Content="Help" Checked="HelpBtn_Checked" />
+                <RadioButton Name="AboutBtn" BorderBrush="CornflowerBlue"
+                         Style="{StaticResource MaterialDesignTabRadioButton}"
+                         Margin="4"
+                         IsChecked="False"
+                         Content="About" Checked="AboutBtn_Checked" />
+            </StackPanel>
+            <DockPanel Margin="0,43,0,0">
+                <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"/>
+            </DockPanel>
 
-    </Grid>
+        </Grid>
+    </materialDesign:DialogHost>
+   
 </Window>

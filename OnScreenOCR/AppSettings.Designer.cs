@@ -35,5 +35,53 @@ namespace OnScreenOCR {
                 this["GOOGLE_APPLICATION_CREDENTIALS"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool CopyToClipboard {
+            get {
+                return ((bool)(this["CopyToClipboard"]));
+            }
+            set {
+                this["CopyToClipboard"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool OpenNewWindow {
+            get {
+                return ((bool)(this["OpenNewWindow"]));
+            }
+            set {
+                this["OpenNewWindow"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-2")]
+        public int OcrEngine {
+            get {
+                return ((int)(this["OcrEngine"]));
+            }
+            set {
+                this["OcrEngine"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("-2")]
+        public int OcrLanguage {
+            get {
+                return ((int)(this["OcrLanguage"]));
+            }
+            set {
+                this["OcrLanguage"] = value;
+            }
+        }
     }
 }

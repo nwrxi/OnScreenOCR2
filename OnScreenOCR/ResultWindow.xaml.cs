@@ -20,14 +20,15 @@ namespace OnScreenOCR
 
         public ResultWindow()
         {
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
             InitializeComponent();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var desktopWorkingArea = SystemParameters.WorkArea;
-            Left = desktopWorkingArea.Right - Width;
-            Top = desktopWorkingArea.Bottom - Height;
+            //var desktopWorkingArea = SystemParameters.WorkArea;
+            //Left = desktopWorkingArea.Right - Width;
+            //Top = desktopWorkingArea.Bottom - Height;
         }
 
 
