@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using GI.Screenshot;
 using Google.Rpc;
 using MaterialDesignThemes.Wpf;
+using OnScreenOCR.Helpers;
 using OnScreenOCR.PerformOCR;
 
 namespace OnScreenOCR
@@ -27,13 +28,19 @@ namespace OnScreenOCR
     public partial class MainWindow
     {
         private bool OcrInProgress { get; set; }
+        private HotkeyManager _hotkeyManager;
+
         public MainWindow()
         {
             InitializeComponent();
         }
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             HelpBtn.IsChecked = true;
+            _hotkeyManager = new HotkeyManager();
+            _hotkeyManager.CreateHotkey(Modifiers.ModControl, 0x14); //caps-lock
+            _hotkeyManager.HotKeyPressed += HotkeyOnHotKeyPressed;
         }
 
         private async void PerformBtn_Click(object sender, RoutedEventArgs e)
@@ -46,13 +53,16 @@ namespace OnScreenOCR
             }
 
             OcrInProgress = true;
-            Hide();
+            if (WindowState != WindowState.Minimized)
+                Hide();
+
             await Task.Delay(180);
             var image = Screenshot.CaptureRegion();
 
             var bitImage = await ConvertImage(image);
 
-            Show();
+            if (Visibility == Visibility.Hidden)
+                Show();
 
             var recognizedText = await RecognizeText(new VisionApi(), bitImage);
 
@@ -71,7 +81,8 @@ namespace OnScreenOCR
             }
 
             if(AppSettings.Default.CopyToClipboard)
-                Clipboard.SetText(recognizedText);
+                Clipboard.SetDataObject(recognizedText);
+
 
             //MessageBox.Show(recognizedText);
 
@@ -99,6 +110,11 @@ namespace OnScreenOCR
             return bitImage;
         }
 
+        private void HotkeyOnHotKeyPressed(object sender, EventArgs e)
+        {
+            PerformBtn_Click(this, null);
+        }
+
         private void ExitBtn_Checked(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
@@ -119,6 +135,9 @@ namespace OnScreenOCR
             MainFrame.Navigate(new AboutPage());
         }
 
-        
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _hotkeyManager.DeleteHotkeys();
+        }
     }
 }
