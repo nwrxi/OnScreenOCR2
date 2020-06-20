@@ -3,7 +3,7 @@
   <Profiles />
   <Settings>
     <Setting Name="GOOGLE_APPLICATION_CREDENTIALS" Type="System.String" Scope="User">
-      <Value Profile="(Default)">C:\Workspaces\C#\workspace\OnScreenOCR\OnScreenOCR\bin\Debug\netcoreapp3.1\textsubreplacer-15a60a521df7.json</Value>
+      <Value Profile="(Default)" />
     </Setting>
     <Setting Name="CopyToClipboard" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>

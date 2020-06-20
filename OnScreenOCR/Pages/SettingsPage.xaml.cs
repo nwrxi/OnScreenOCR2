@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Windows.Media.Ocr;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.Win32;
 
 namespace OnScreenOCR
@@ -42,6 +43,8 @@ namespace OnScreenOCR
             if (AppSettings.Default.OcrLanguage >= 0)
                 LanguageList.SelectedIndex = AppSettings.Default.OcrLanguage;
 
+            if(!string.IsNullOrWhiteSpace(AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS))
+                GoogleKey.Text = "Google API key: Found";
         }
 
 
@@ -49,6 +52,8 @@ namespace OnScreenOCR
         {
             AppSettings.Default.OcrEngine = ApiList.SelectedIndex;
             PopulateLanguageList();
+
+            AppSettings.Default.Save();
         }
         private void PopulateLanguageList()
         {
@@ -72,6 +77,21 @@ namespace OnScreenOCR
         private void LanguageList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             AppSettings.Default.OcrLanguage = LanguageList.SelectedIndex;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var openFileDlg = new OpenFileDialog {DefaultExt = ".json", Filter = "JSON files (.json)|*.json"};
+            var result = openFileDlg.ShowDialog();
+            if (result == true)
+            {
+                AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS = openFileDlg.FileName;
+                Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS);
+                GoogleKey.Text = "Google API key: Found";
+            }
+            AppSettings.Default.Save();
+
+            Dialog.IsOpen = true;
         }
     }
 }

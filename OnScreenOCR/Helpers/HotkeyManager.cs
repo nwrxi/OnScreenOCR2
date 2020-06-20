@@ -13,6 +13,7 @@ namespace OnScreenOCR.Helpers
         [DllImport("user32.dll")]
         private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
 
+
         public event EventHandler HotKeyPressed;
 
         private const int HotkeyId = 9000;

@@ -25,8 +25,7 @@ namespace OnScreenOCR {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("C:\\Workspaces\\C#\\workspace\\OnScreenOCR\\OnScreenOCR\\bin\\Debug\\netcoreapp3.1\\textsu" +
-            "breplacer-15a60a521df7.json")]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string GOOGLE_APPLICATION_CREDENTIALS {
             get {
                 return ((string)(this["GOOGLE_APPLICATION_CREDENTIALS"]));
