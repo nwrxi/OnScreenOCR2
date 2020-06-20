@@ -64,7 +64,21 @@ namespace OnScreenOCR
             if (Visibility == Visibility.Hidden)
                 Show();
 
-            var recognizedText = await RecognizeText(new VisionApi(), bitImage);
+            var recognizedText = "";
+            try
+            {
+                recognizedText = await RecognizeText(new VisionApi(), bitImage);
+            }
+            catch (Exception exception)
+            {
+                DialogText.Text = exception.Message;
+                AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS = "";
+                OcrInProgress = false;
+
+                Dialog.IsOpen = true;
+
+                return;
+            }
 
             if (AppSettings.Default.OpenNewWindow)
             {

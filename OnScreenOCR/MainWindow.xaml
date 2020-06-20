@@ -17,7 +17,7 @@
     <materialDesign:DialogHost Name="Dialog">
         <materialDesign:DialogHost.DialogContent>
             <StackPanel Margin="16">
-                <TextBlock>OCR is already in progress.</TextBlock>
+                <TextBlock Name="DialogText">OCR is already in progress.</TextBlock>
                 <Button Style="{StaticResource MaterialDesignFlatButton}"
                         IsCancel="True"
                         Margin="0 8 8 0"
@@ -69,5 +69,4 @@
 
         </Grid>
     </materialDesign:DialogHost>
-   
 </Window>
