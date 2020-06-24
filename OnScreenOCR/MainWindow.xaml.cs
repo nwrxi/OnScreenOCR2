@@ -48,7 +48,6 @@ namespace OnScreenOCR
             if (OcrInProgress)
             {
                 Dialog.IsOpen = true;
-                //MessageBox.Show("OCR is already in progress");
                 return;
             }
 
@@ -59,12 +58,18 @@ namespace OnScreenOCR
             await Task.Delay(180);
             var image = Screenshot.CaptureRegion();
 
+            if (image == null)
+            {
+                OcrInProgress = false;
+                ShowWindow();
+                return;
+            }
+
             var bitImage = await ConvertImage(image);
 
-            if (Visibility == Visibility.Hidden)
-                Show();
+            ShowWindow();
 
-            var recognizedText = "";
+            string recognizedText;
             try
             {
                 recognizedText = await RecognizeText(new VisionApi(), bitImage);
@@ -74,12 +79,28 @@ namespace OnScreenOCR
                 DialogText.Text = exception.Message;
                 AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS = "";
                 OcrInProgress = false;
-
+                ShowWindow();
                 Dialog.IsOpen = true;
 
                 return;
             }
 
+            OpenNewWindow(recognizedText);
+
+            if(AppSettings.Default.CopyToClipboard)
+                Clipboard.SetDataObject(recognizedText);
+
+            OcrInProgress = false;
+        }
+
+        private void ShowWindow()
+        {
+            if (Visibility == Visibility.Hidden)
+                Show();
+        }
+
+        private static void OpenNewWindow(string recognizedText)
+        {
             if (AppSettings.Default.OpenNewWindow)
             {
                 if (Application.Current.Windows.OfType<ResultWindow>().Any())
@@ -89,18 +110,10 @@ namespace OnScreenOCR
                 }
                 else
                 {
-                    var resWindow = new ResultWindow { ResultText = { Text = recognizedText } };
+                    var resWindow = new ResultWindow {ResultText = {Text = recognizedText}};
                     resWindow.Show();
                 }
             }
-
-            if(AppSettings.Default.CopyToClipboard)
-                Clipboard.SetDataObject(recognizedText);
-
-
-            //MessageBox.Show(recognizedText);
-
-            OcrInProgress = false;
         }
 
         private static async Task<string> RecognizeText(IOcrHandler ocrHandler, byte[] bitImage)
