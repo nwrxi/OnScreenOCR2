@@ -43,12 +43,12 @@
                 Name="LanguageList" materialDesign:HintAssist.Hint="Choose text language" Height="34" Margin="10,101,492,0"
                 VerticalAlignment="Top" SelectionChanged="LanguageList_SelectionChanged"  >
             </ComboBox>
-            <CheckBox Content="Copy OCR results to clipboard" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" 
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" Content="Copy OCR results to clipboard" HorizontalAlignment="Left" Margin="10,152,0,0" VerticalAlignment="Top" 
                       IsChecked="{Binding CopyToClipboard, 
                 Mode=TwoWay, 
                 Source={x:Static local:AppSettings.Default}, 
                 UpdateSourceTrigger=PropertyChanged}"/>
-            <CheckBox Content="Open new window with OCR results" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top"
+            <CheckBox Checked="CheckBoxChanged" Unchecked="CheckBoxChanged" Content="Open new window with OCR results" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top"
                       IsChecked="{Binding OpenNewWindow, 
                 Mode=TwoWay, 
                 Source={x:Static local:AppSettings.Default}, 

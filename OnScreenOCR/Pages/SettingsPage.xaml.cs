@@ -93,5 +93,10 @@ namespace OnScreenOCR
 
             Dialog.IsOpen = true;
         }
+
+        private void CheckBoxChanged(object sender, RoutedEventArgs e)
+        {
+            AppSettings.Default.Save();
+        }
     }
 }
