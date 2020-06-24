@@ -27,7 +27,8 @@ namespace OnScreenOCR.Helpers
         public void CreateHotkey(Modifiers modifier, uint vkKey)
         {
             _vkKey = vkKey;
-            _windowHandle = new WindowInteropHelper(Application.Current.MainWindow ?? throw new InvalidOperationException("Main window couldn't be found")).Handle;
+            _windowHandle = new WindowInteropHelper
+                (Application.Current.MainWindow ?? throw new InvalidOperationException("Main window couldn't be found")).Handle;
             
             _source = HwndSource.FromHwnd(_windowHandle);
             _source?.AddHook(HwndHook);

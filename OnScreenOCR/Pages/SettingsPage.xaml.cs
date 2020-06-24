@@ -28,23 +28,33 @@ namespace OnScreenOCR
         {
             InitializeComponent();
 
-            var ocrEngines = new List<string> {"Google Vision", "OCR.Space"};
+            PopulateApiList();
 
-            if (OcrEngine.AvailableRecognizerLanguages.Count > 0)
-            {
-                ocrEngines.Add("Windows 10");
-            }
+            SetChosenSettings();
+        }
 
-            ApiList.ItemsSource = ocrEngines;
-
+        private void SetChosenSettings()
+        {
             if (AppSettings.Default.OcrEngine >= 0)
                 ApiList.SelectedIndex = AppSettings.Default.OcrEngine;
 
             if (AppSettings.Default.OcrLanguage >= 0)
                 LanguageList.SelectedIndex = AppSettings.Default.OcrLanguage;
 
-            if(!string.IsNullOrWhiteSpace(AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS))
+            if (!string.IsNullOrWhiteSpace(AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS))
                 GoogleKey.Text = "Google API key: Found";
+        }
+
+        private void PopulateApiList()
+        {
+            var ocrEngines = new List<string> {"Google Vision", "OCR.Space/Not Implemented"};
+
+            if (OcrEngine.AvailableRecognizerLanguages.Count > 0)
+            {
+                ocrEngines.Add("Windows/Not Implemented");
+            }
+
+            ApiList.ItemsSource = ocrEngines;
         }
 
 
