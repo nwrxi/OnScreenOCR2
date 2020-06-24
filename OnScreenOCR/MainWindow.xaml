@@ -52,11 +52,6 @@
                          Margin="4"
                          IsChecked="False"
                          Content="Settings" Checked="SettingsBtn_Checked" />
-                <RadioButton Name="HelpBtn" BorderBrush="CornflowerBlue"
-                         Style="{StaticResource MaterialDesignTabRadioButton}"
-                         Margin="4"
-                         IsChecked="False"
-                         Content="Help" Checked="HelpBtn_Checked" />
                 <RadioButton Name="AboutBtn" BorderBrush="CornflowerBlue"
                          Style="{StaticResource MaterialDesignTabRadioButton}"
                          Margin="4"

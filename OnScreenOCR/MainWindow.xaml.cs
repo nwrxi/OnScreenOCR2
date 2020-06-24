@@ -37,7 +37,7 @@ namespace OnScreenOCR
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            HelpBtn.IsChecked = true;
+            SettingsBtn.IsChecked = true;
             _hotkeyManager = new HotkeyManager();
             _hotkeyManager.CreateHotkey(Modifiers.ModControl, 0x14); //caps-lock
             _hotkeyManager.HotKeyPressed += HotkeyOnHotKeyPressed;
@@ -145,11 +145,6 @@ namespace OnScreenOCR
         private void ExitBtn_Checked(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
-        }
-
-        private void HelpBtn_Checked(object sender, RoutedEventArgs e)
-        {
-            MainFrame.Navigate(new HelpPage());
         }
 
         private void SettingsBtn_Checked(object sender, RoutedEventArgs e)
