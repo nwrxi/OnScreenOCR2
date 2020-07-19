@@ -72,7 +72,14 @@ namespace OnScreenOCR
             string recognizedText;
             try
             {
-                recognizedText = await RecognizeText(new VisionApi(), bitImage);
+                IOcrHandler ocrHandler = AppSettings.Default.OcrEngine switch
+                {
+                    0 => new VisionApi(),
+                    1 => new OcrSpace(),
+                    _ => new VisionApi()
+                };
+
+                recognizedText = await RecognizeText(ocrHandler, bitImage);
             }
             catch (Exception exception)
             {

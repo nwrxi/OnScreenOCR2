@@ -82,5 +82,17 @@ namespace OnScreenOCR {
                 this["OcrLanguage"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string OcrSpaceApiKey {
+            get {
+                return ((string)(this["OcrSpaceApiKey"]));
+            }
+            set {
+                this["OcrSpaceApiKey"] = value;
+            }
+        }
     }
 }

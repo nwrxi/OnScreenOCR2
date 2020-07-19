@@ -17,5 +17,8 @@
     <Setting Name="OcrLanguage" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">-2</Value>
     </Setting>
+    <Setting Name="OcrSpaceApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

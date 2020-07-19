@@ -54,8 +54,12 @@
                 Source={x:Static local:AppSettings.Default}, 
                 UpdateSourceTrigger=PropertyChanged}"/>
 
-            <TextBlock HorizontalAlignment="Left" Name="GoogleKey" Text="Google API key: Not Found" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Margin="421,12,0,0"/>
-            <Button HorizontalAlignment="Left" VerticalAlignment="Top" Content="Choose file" Margin="421,34,0,0" Click="Button_Click"/>
+
+            <TextBlock HorizontalAlignment="Right" Name="GoogleKey" Text="Google API key: Not Found" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Margin="0,11,187,0"/>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Top" Content="Choose file" Margin="0,41,276,0" Click="Button_Click"/>
+
+            <TextBlock HorizontalAlignment="Right" Name="SpaceText" Text="OCR.Space API key: Not Found" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16" Margin="0,79,162,0"/>
+            <TextBox HorizontalAlignment="Right" Name="SpaceKey" Margin="0,105,137,0" materialDesign:HintAssist.Hint="OCR.Space API key" TextWrapping="NoWrap" VerticalAlignment="Top" Width="242" Height="30" LostFocus="SpaceKey_LostFocus"/>
 
         </Grid>
     </materialDesign:DialogHost>
