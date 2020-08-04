@@ -57,7 +57,7 @@ namespace OnScreenOCR
 
         private void PopulateApiList()
         {
-            var ocrEngines = new List<string> {"Google Vision", "OCR.Space"};
+            var ocrEngines = new List<string> {"Google Vision", "OCR.Space", "Azure OCR"};
 
             if (OcrEngine.AvailableRecognizerLanguages.Count > 0)
             {
@@ -95,6 +95,8 @@ namespace OnScreenOCR
                     LanguageList.SelectedIndex = AppSettings.Default.OcrLanguage < 0 ? 6 : AppSettings.Default.OcrLanguage;
                     break;
                 case 2:
+                    break;
+                case 3:
                     LanguageList.ItemsSource = OcrEngine.AvailableRecognizerLanguages.Select(l => l.DisplayName);
                     break;
             }
@@ -116,6 +118,8 @@ namespace OnScreenOCR
             {
                 AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS = openFileDlg.FileName;
                 Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", AppSettings.Default.GOOGLE_APPLICATION_CREDENTIALS);
+
+                GoogleKey.Margin = new Thickness(0, 11, 219, 0);
                 GoogleKey.Text = "Google API key: Found";
             }
 
